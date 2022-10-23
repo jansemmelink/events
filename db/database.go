@@ -155,6 +155,10 @@ var (
 	compiledStatements = map[string]*sqlx.NamedStmt{}
 )
 
+func Db() *sqlx.DB {
+	return db
+}
+
 //compile statements only once
 func getCompiledStatement(query string) (*sqlx.NamedStmt, error) {
 	compilesMutex.Lock()
