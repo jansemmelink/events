@@ -24,8 +24,24 @@ func ListEvents(filter string) ([]EventSummary, error) {
 }
 
 type Event struct {
-	Name string `json:"name" db:"name"`
-	Date string `json:"date" db:"date"`
+	Name          string `json:"name" db:"name"`
+	Description   string `json:"description"`
+	StartTime     string `json:"start_time" db:"start_time"`
+	EndTime       string `json:"end_time" db:"end_time"`
+	LocationID    string `json:"location_id" db:"location_id"`
+	Cost          Amount `json:"cost" db:"cost"`
+	ParentEventID string `json:"parent_event_id" db:"parent_event_id"`
+}
+
+type EventOrganiser struct {
+	EventID  string `json:"event_id"`
+	PersonID string `json:"person_id"`
+	Role     string `json:"role"`
+}
+
+type Filter struct {
+	Must map[string]interface{}
+	Not  map[string]interface{}
 }
 
 func GetEvent(id string) (*Event, error) {
