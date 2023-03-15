@@ -40,3 +40,16 @@ func GetEvent(id string) (*Event, error) {
 	}
 	return &event, nil
 }
+
+type NewEventRequest struct {
+	Name string `json:"name"`
+	Date string `json:"data"`
+}
+
+func AddEvent(NewEventRequest) (*Event, error) {
+	...get auth details to know who is the organiser
+	//allow multiple persons to be added/removed as organisers
+	//create list of event contacts, e.g. "organisers":..., "enquiries":..., "admin":... and allow them to edit the list
+	//need ultimately to grant them individually access to event operations, but can do that later because will need profiles of what is allowed for role of helper.
+	return nil, errors.Errorf("NYI")
+}

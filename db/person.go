@@ -225,7 +225,7 @@ func AddPerson(req RegisterRequest) (id string, err error) {
 		}
 		msg.Content = "<H1>Account Registration</H1>"
 		msg.Content += "<P>Your email address was registered in the Events system.</P>"
-		msg.Content += "<P>Click <a href=\"" + activateLink + "\">here</a>to activate your account.</P>"
+		msg.Content += "<P>Click <a href=\"" + activateLink + "\">here</a> to activate your account.</P>"
 		msg.Content += "<P>This link is only active until " + txp.Format("2006-01-02 15:04:05 Z") + "</P>"
 		if err := email.Send(msg); err != nil {
 			log.Errorf("failed to send email: %+v", err) //log and do not return the underlying fault to the user
@@ -336,7 +336,7 @@ func AuthReset(req AuthResetRequest) error {
 	}
 	msg.Content = "<H1>Password Reset</H1>"
 	msg.Content += "<P>We received a request to reset your password for the Events system. If you did not send the request, please delete and ignore this email and keep using your current password.</P>"
-	msg.Content += "<P>Click <a href=\"" + activateLink + "\">here</a>to set a new password for your Events account.</P>"
+	msg.Content += "<P>Click <a href=\"" + activateLink + "\">here</a> to set a new password for your Events account.</P>"
 	msg.Content += "<P>This link is only active until " + txp.Format("2006-01-02 15:04:05 Z") + "</P>"
 	if err := email.Send(msg); err != nil {
 		log.Errorf("failed to send email: %+v", err) //log and do not return the underlying fault to the user

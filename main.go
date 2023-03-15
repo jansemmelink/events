@@ -21,6 +21,7 @@ func main() {
 	r.HandleFunc("/auth/reset", auth(authPostReset)).Methods(http.MethodPost)
 	r.HandleFunc("/auth/login", auth(authPostLogin)).Methods(http.MethodPost)
 	r.HandleFunc("/validate/password", auth(authPostValidatePassword)).Methods(http.MethodPost)
+	r.HandleFunc("/events", auth(eventsPostNewEvent)).Methods(http.MethodPost)
 	r.HandleFunc("/events", auth(getEventsList)).Methods(http.MethodGet)
 	r.HandleFunc("/event/{id}", auth(getEventDetails)).Methods(http.MethodGet)
 	http.Handle("/", CORS(r))
@@ -206,6 +207,13 @@ func authPostValidatePassword(ctx context.Context, req ValidationRequest) (Valid
 		return ValidationResponse{Valid: false, Details: fmt.Sprintf("invalid password: %s", err)}, nil
 	}
 	return ValidationResponse{Valid: true}, nil
+}
+
+func eventsPostNewEvent(ctx context.Context, req db.NewEventRequest) (db.Event, error) {
+	event, err := db.AddEvent(req)
+	if err != nil {
+		return db.Event{}, errors.Wrapf(err, "failed to create new event")
+	}
 }
 
 func getEventsList(ctx context.Context) (interface{}, error) {
